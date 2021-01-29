@@ -1,7 +1,8 @@
-from django.urls import path
 from . import views
+from django.urls import path, include
+from .views import SignUpView
 
 urlpatterns = [
-    path('login/', views.user_login, name='user_login'),
-    path('', views.index, name='index'),
+    path('', include('django.contrib.auth.urls')),
+    path('signup/', SignUpView.as_view(template_name='registration/signup.html'), name='signup'),
 ]

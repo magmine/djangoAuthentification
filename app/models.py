@@ -14,4 +14,3 @@ d'authentification.
 class Person(AbstractUser):
     phone_number = models.CharField(max_length=50, null=True)
     ville = models.CharField(max_length=100, null=True)
-

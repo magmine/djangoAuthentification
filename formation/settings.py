@@ -20,14 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'j=i@)ue7rt9d^b^#y7=%jfm%^6_85pwui_h#@5+rh2c*7#k-vz'
+SECRET_KEY = 'j=i@)ue7rt9d^b^#y7=%jfm%^6_85pwui_h#@5+rh2c*7#k-vz' #used to  hash something
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-AUTH_USER_MODEL = "app.person" # specifie le model d'authentification
-
+AUTH_USER_MODEL = "app.Person" # specifie le model d'authentification
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,10 +43,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware', # manages sessions across requests. Does every sessions has it's own request context
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware', # associates users with requests using sessions.
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -55,12 +56,13 @@ ROOT_URLCONF = 'formation.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [], # used to set the dirs containing the templates you create, it can be used to override templates of third party apps
+        # by adding, a directory containing overrided templates like this "BASE_DIR/templates/3rd_partie_app_name/*.html"  
+        'APP_DIRS': True, # Tells the template loader, to check for templates also in "app_name/templates/app_name/*.html" and not only in dirs
         'OPTIONS': {
-            'context_processors': [
+            'context_processors': [ # Context_processor is the tool that allows passing global context like request to the other to the whole codebase
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', # Allows to retrieve request data
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -73,7 +75,8 @@ WSGI_APPLICATION = 'formation.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+# We can have many databases, that we can access to using the "using" filter in ORM
+# eg. Person.objects.using("dbName").all() selects qll instqnces of the object person from the DB dbName.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -104,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'fr-fr'
+LANGUAGE_CODE = 'fr-fr' # uses the traduction module ? 
 
 TIME_ZONE = 'UTC'
 
@@ -118,4 +121,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' #a folder used for security reasons to hide the actual position of the static files
