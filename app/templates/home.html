@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+<!-- Always check that user is is_authenticated before showing any sensible information
+- Many questions raise in that case : 
+    - what if a malicious user removes the block checkin if the user is authenticated 
+-->
+
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <li>{{user.ville}}</li>
+  <li>{{user.phone_number}}</li>
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+  <p><a href="{% url 'password_change' %}">Change password</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+{% endblock %}
