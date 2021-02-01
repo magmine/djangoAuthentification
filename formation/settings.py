@@ -27,12 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL = "app.Person" # specifie le model d'authentification
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home' # Where to redirect after login
+LOGOUT_REDIRECT_URL = 'home' # Where to redirect after logout 
 # Application definition
 
 INSTALLED_APPS = [
     'app',
+    'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
